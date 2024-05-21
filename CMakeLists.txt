@@ -14,10 +14,13 @@ catkin_package(
   CATKIN_DEPENDS geometry_msgs roscpp sensor_msgs std_msgs
 )
 
+
 include_directories(include ${catkin_INCLUDE_DIRS})
 
 add_library(${PROJECT_NAME} src/${PROJECT_NAME})
 target_link_libraries(${PROJECT_NAME} ${catkin_LIBRARIES})
+# For GFOE custom ROS messages
+add_dependencies(${PROJECT_NAME} ${catkin_EXPORTED_TARGETS})
 
 add_executable(${PROJECT_NAME}_node src/teleop_node.cpp)
 target_link_libraries(${PROJECT_NAME}_node ${PROJECT_NAME} ${catkin_LIBRARIES})

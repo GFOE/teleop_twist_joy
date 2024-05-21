@@ -24,6 +24,9 @@
   <run_depend>joy</run_depend>
   <run_depend>roscpp</run_depend>
   <run_depend>sensor_msgs</run_depend>
+  <!-- GFOE custom messages -->
+  <build_depend>gfoe_j1939_blue_arrow_interface</build_depend>
+  <run_depend>gfoe_j1939_blue_arrow_interface</run_depend>
 
   <export>
   </export>
