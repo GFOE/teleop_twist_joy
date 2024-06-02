@@ -17,38 +17,36 @@ Simple joystick teleop for twist robots. See [ROS Wiki](http://wiki.ros.org/tele
 
 ### Published Topics
 
-`cmd_val`(geometry_msgs/Twist OR geometry_msgs/TwistStamped)
+* `cmd_val`(geometry_msgs/Twist OR geometry_msgs/TwistStamped)
 
 
-`bluearrow_mode_cmd` ([gfoe_j1939_blue_arrow_interface::BlueArrowHelmMode](https://bitbucket.org/gfoe/gfoe_j1939_blue_arrow_interface/src/gfoe-devel/msg/BlueArrowHelmMode.msg)):
+* `bluearrow_mode_cmd` ([gfoe_j1939_blue_arrow_interface::BlueArrowHelmMode](https://bitbucket.org/gfoe/gfoe_j1939_blue_arrow_interface/src/gfoe-devel/msg/BlueArrowHelmMode.msg)):
 
-`xci_control_enable` (std_msgs::Bool)
+* `xci_control_enable` (std_msgs::Bool)
 
-`send_command` (std_msgs::String): Publishes Project 11 piloting mode commands.  In conjuction with `manual_button` and `auto_button` can send "piloting_mode_manual" and "piloting_mode_autonomous" Strings which typically got to the `command_bridge_sender`->`command_bridge_receiver`->`mission_control` nodes.  Currently looks this functionality is commented out, so that only a `piloting_mode_normal` String is published.
+* `send_command` (std_msgs::String): Publishes Project 11 piloting mode commands.  In conjuction with parameters `manual_button` and `auto_button` can send "piloting_mode_manual" and "piloting_mode_autonomous" Strings which typically got to the `command_bridge_sender`->`command_bridge_receiver`->`mission_control` nodes.  Currently looks this functionality is commented out, so that only a `piloting_mode_normal` String is published.
 
 
 ### Parameters
 
-`joy_vel_output` (string, default: "TwistStamped"): If the value is "Twist", publish a `Twist` message as is done in the unmodified teleop_node.  If the value is anything else, publish a `TwistStamped` message.
+* `joy_vel_output` (string, default: "TwistStamped"): If the value is "Twist", publish a `Twist` message as is done in the unmodified teleop_node.  If the value is anything else, publish a `TwistStamped` message.
 
 
-`xci_control_button` (int, default: -1)
+* `xci_control_button` (int, default: -1)
 
 These parameters specify the buttons used to publish on the `bluearrow_mode_cmd` topic.
-`open_loop_button` (int, default: -1)
 
-`station_keeep_button` (int, default: -1)
+* `open_loop_button` (int, default: -1)
 
-`virtual_anchor_button` (int, default: -1): When the specified button is pressed 
+* `station_keeep_button` (int, default: -1)
 
-
+* `virtual_anchor_button` (int, default: -1): When the specified button is pressed 
 
 The following parameters are still in the code, but the functionality is commented out:
 
-`manual_button` (int, default: -1): When the specified button is pressed a `piloting_mode_manual` String is published on the `send_command` topic.  See above.
+* `manual_button` (int, default: -1): When the specified button is pressed a `piloting_mode_manual` String is published on the `send_command` topic.  See above.
 
-`auto_button` (int, default: -1): When the specified button is pressed a `piloting_mode_autonomous` String is published on the `send_command` topic.  See above.
-
+* `auto_button` (int, default: -1): When the specified button is pressed a `piloting_mode_autonomous` String is published on the `send_command` topic.  See above.
 
 
 ### Examples
