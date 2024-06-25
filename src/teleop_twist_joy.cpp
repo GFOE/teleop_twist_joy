@@ -69,8 +69,12 @@ struct TeleopTwistJoy::Impl
 
   // Store state
   gfoe_j1939_blue_arrow_interface::BlueArrowHelmMode bluearrow_mode;
-  
+
+  // The type of twist output: Twist or TwistStamped
   std::string joy_vel_output;
+
+  // Frame (tf) name to use in TwistStamped header
+  std::string frame_id;
 
   std::map<std::string, int> axis_linear_map;
   std::map< std::string, std::map<std::string, double> > scale_linear_map;
@@ -92,6 +96,8 @@ TeleopTwistJoy::TeleopTwistJoy(ros::NodeHandle* nh, ros::NodeHandle* nh_param)
 
   nh_param->param<std::string>("joy_vel_output",
 			       pimpl_->joy_vel_output, "TwistStamped");
+  nh_param->param<std::string>("frame_id",
+			       pimpl_->frame_id, "base_link");
 
   // Initialize state
   pimpl_->bluearrow_mode = gfoe_j1939_blue_arrow_interface::BlueArrowHelmMode();
@@ -225,7 +231,7 @@ void TeleopTwistJoy::Impl::sendCmdVelMsgTwistStamped(const sensor_msgs::Joy::Con
   geometry_msgs::TwistStamped cmd_vel_msg;
 
   cmd_vel_msg.header.stamp = ros::Time::now();
-  cmd_vel_msg.header.frame_id = "teleop_twist_joy";
+  cmd_vel_msg.header.frame_id = frame_id;
 
   cmd_vel_msg.twist.linear.x = getVal(joy_msg, axis_linear_map,
 				      scale_linear_map[which_map], "x");
@@ -369,7 +375,7 @@ void TeleopTwistJoy::Impl::joyCallback(const sensor_msgs::Joy::ConstPtr& joy_msg
       {
         geometry_msgs::TwistStamped cmd_vel_msg;
 	cmd_vel_msg.header.stamp = ros::Time::now();
-	cmd_vel_msg.header.frame_id = "teleop_twist_joy";
+	cmd_vel_msg.header.frame_id = frame_id;
 	cmd_vel_msg.twist.linear.x = 0;
 	cmd_vel_msg.twist.linear.y = 0;
 	cmd_vel_msg.twist.angular.z = 0;
